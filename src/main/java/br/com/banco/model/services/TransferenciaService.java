@@ -8,6 +8,12 @@ import br.com.banco.model.Transferencia;
 
 public class TransferenciaService {
 
+	/**
+	 * Método  responsável por buscar os dados de acordo com a data especificada
+	 * @param transferencias -> lista de transferencias
+	 * @param data_ini -> data especificada para busca
+	 * @return List<Transferencia>
+	 */
 	public List<Transferencia> filtro_data(List<Transferencia> transferencias, Date data_ini){
 		List<Transferencia> busca = new ArrayList<Transferencia>();
 		DateService date_service = new DateService();
