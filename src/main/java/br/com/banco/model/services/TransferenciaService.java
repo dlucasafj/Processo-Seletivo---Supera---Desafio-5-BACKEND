@@ -6,6 +6,11 @@ import java.util.List;
 
 import br.com.banco.model.Transferencia;
 
+/**
+ * Classe de Serviço responsável por manipular os dados de Transferencias
+ * @author daniel
+ *
+ */
 public class TransferenciaService {
 
 	/**
@@ -50,6 +55,27 @@ public class TransferenciaService {
 			}
 		});
 		
+		return busca;
+	}
+	
+	/**
+	 * Método responsável por buscar as transações feita por um operador
+	 * @param transferencias -> Lista de todas as transferencias
+	 * @param responsavel -> Nome do responsável pela operação
+	 * @return List<Transferencia> -> Lista de todas as transações feita pelo operador informado
+	 */
+	public List<Transferencia> filtro_nome_responsavel(List<Transferencia> transferencias, String responsavel){
+		List<Transferencia> busca = new ArrayList<Transferencia>();
+		
+		transferencias.forEach(transferencia->{
+			String operador = transferencia.getNome_operador_transacao();
+			if(operador !=null) {
+				if(operador.equals(responsavel)) {
+					busca.add(transferencia);
+				}
+			};
+			
+		});
 		return busca;
 	}
 }
