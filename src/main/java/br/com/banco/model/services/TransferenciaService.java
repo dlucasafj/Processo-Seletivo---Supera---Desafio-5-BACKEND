@@ -49,7 +49,6 @@ public class TransferenciaService {
 		transferencias.forEach(transferencia -> {
 			Date data_banco = transferencia.getData_transferencia();
 			boolean response = date_service.periodo(data_banco, data_ini,data_fim);
-			System.out.println(response);
 			if (response) {
 				busca.add(transferencia);
 			}
@@ -78,4 +77,34 @@ public class TransferenciaService {
 		});
 		return busca;
 	}
+	
+	/**
+	 * Método responsável por buscar as transações de acordo com um período e um nome de operador
+	 * @param transferencias -> Array com todas as tranferencias cadastradas
+	 * @param data_ini -> Data inicial do período
+	 * @param data_fim -> Data final do período
+	 * @param responsavel -> Nome do operador responsável
+	 * @return List<Transferencia> -> Lista de todas as transações feitas no período e pelo responsável informados
+	 */
+	public List<Transferencia> filtro_all(List<Transferencia> transferencias, Date data_ini,Date data_fim, String responsavel){
+		List<Transferencia> busca = new ArrayList<Transferencia>();
+		DateService date_service = new DateService();
+		
+		transferencias.forEach(transferencia->{
+			
+			Date data_banco = transferencia.getData_transferencia();
+			boolean response_periodo= date_service.periodo(data_banco, data_ini, data_fim);
+			String operador = transferencia.getNome_operador_transacao();
+			
+			if(operador!=null) {
+				if(response_periodo && operador.equals(responsavel)) {
+					busca.add(transferencia);
+				}
+			}
+						
+		});
+		return busca;
+	}
+	
+	
 }
