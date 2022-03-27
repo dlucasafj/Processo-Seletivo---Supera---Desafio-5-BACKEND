@@ -20,7 +20,7 @@ public class TransferenciaController {
 
 	@Autowired
 	private TransferenciaRepository transferenciaRepository;
-
+	private TransferenciaService trans_service = new TransferenciaService(); 
 	/**
 	 * Método que faz a busca de todos os dados na Base de Dados
 	 * 
@@ -45,10 +45,10 @@ public class TransferenciaController {
 			@RequestParam(name = "data_fim", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_fim) {
 
 		List<Transferencia> transferencias = transferenciaRepository.findAll();
-		TransferenciaService trans_service = new TransferenciaService();
+//		TransferenciaService trans_service = new TransferenciaService();
 
 //		trans_service.filtro_data(transferencias, data_ini);
-		return trans_service.filtro_data(transferencias, data_ini);
+		return this.trans_service.filtro_data(transferencias, data_ini);
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class TransferenciaController {
 	 * 
 	 * @param data_ini -> Data inicial
 	 * @param data_fim -> Data final
-	 * @return Lista de Transferência referente ao período
+	 * @return List<Transferencia> -> Lista de Transferência referente ao período
 	 */
 	@GetMapping("/busca_periodo")
 	public List<Transferencia> get_data_por_periodo(
@@ -65,10 +65,22 @@ public class TransferenciaController {
 			@RequestParam(name = "data_fim") @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_fim) {
 
 		List<Transferencia> transferencias = transferenciaRepository.findAll();
-		TransferenciaService trans_service = new TransferenciaService();
+//		TransferenciaService trans_service = new TransferenciaService();
 
-		return trans_service.filtro_periodo(transferencias, data_ini, data_fim);
+		return this.trans_service.filtro_periodo(transferencias, data_ini, data_fim);
 
+	}
+	/**
+	 * Método responsável por fazer a busca das transferências de acordo com o nome do operador responsável
+	 * @param name_responsavel -> nome do operador responsável
+	 * @return List<Transferencia> ->Lista de transferencia feita pelo operador
+	 */
+	@GetMapping("/busca_operador")
+	public List<Transferencia> get_transfer_name_responsavel(@RequestParam(name="operador")String name_responsavel){
+		List<Transferencia>transferencias = transferenciaRepository.findAll();
+//		TransferenciaService trans_service = new TransferenciaService();
+		
+		return this.trans_service.filtro_nome_responsavel(transferencias, name_responsavel);
 	}
 
 }
