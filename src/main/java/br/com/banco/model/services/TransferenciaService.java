@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.com.banco.model.Transferencia;
 
 /**
@@ -11,6 +13,7 @@ import br.com.banco.model.Transferencia;
  * @author daniel
  *
  */
+@Service
 public class TransferenciaService {
 
 	/**

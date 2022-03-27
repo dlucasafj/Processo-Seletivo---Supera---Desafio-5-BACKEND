@@ -6,8 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.banco.model.Transferencia;
@@ -46,9 +49,7 @@ public class TransferenciaController {
 			@RequestParam(name = "data_fim", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_fim) {
 
 		List<Transferencia> transferencias = transferenciaRepository.findAll();
-//		TransferenciaService trans_service = new TransferenciaService();
 
-//		trans_service.filtro_data(transferencias, data_ini);
 		return this.trans_service.filtro_data(transferencias, data_ini);
 	}
 
@@ -104,4 +105,17 @@ public class TransferenciaController {
 		
 		return this.trans_service.filtro_all(transferencias, data_ini, data_fim, name_responsavel);
 	}
+	
+	
+	/**
+	 * Método responsável por criar uma nova transação
+	 * @param transferencia
+	 * @return
+	 */
+//	@PostMapping
+//	public Transferencia create_transacao(Transferencia transferencia) {
+//		
+//		System.out.println(transferencia);
+//		return transferencia;
+//	}
 }

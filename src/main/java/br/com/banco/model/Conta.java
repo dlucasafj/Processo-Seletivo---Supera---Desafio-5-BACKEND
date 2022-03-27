@@ -13,5 +13,5 @@ public class Conta {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id_conta;
-	private String nome_responsave;
+	private String nome_responsavel;
 }
