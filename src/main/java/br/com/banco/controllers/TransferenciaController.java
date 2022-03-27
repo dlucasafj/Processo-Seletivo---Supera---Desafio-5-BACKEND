@@ -20,7 +20,8 @@ public class TransferenciaController {
 
 	@Autowired
 	private TransferenciaRepository transferenciaRepository;
-	private TransferenciaService trans_service = new TransferenciaService(); 
+	private TransferenciaService trans_service = new TransferenciaService();
+
 	/**
 	 * Método que faz a busca de todos os dados na Base de Dados
 	 * 
@@ -70,17 +71,37 @@ public class TransferenciaController {
 		return this.trans_service.filtro_periodo(transferencias, data_ini, data_fim);
 
 	}
+
 	/**
-	 * Método responsável por fazer a busca das transferências de acordo com o nome do operador responsável
+	 * Método responsável por fazer a busca das transferências de acordo com o nome
+	 * do operador responsável
+	 * 
 	 * @param name_responsavel -> nome do operador responsável
 	 * @return List<Transferencia> ->Lista de transferencia feita pelo operador
 	 */
 	@GetMapping("/busca_operador")
-	public List<Transferencia> get_transfer_name_responsavel(@RequestParam(name="operador")String name_responsavel){
-		List<Transferencia>transferencias = transferenciaRepository.findAll();
+	public List<Transferencia> get_transfer_name_responsavel(@RequestParam(name = "operador") String name_responsavel) {
+		List<Transferencia> transferencias = transferenciaRepository.findAll();
 //		TransferenciaService trans_service = new TransferenciaService();
-		
+
 		return this.trans_service.filtro_nome_responsavel(transferencias, name_responsavel);
 	}
 
+	/**
+	 * Método responsável por fazer a busca das transferências de acordo com um período e o nome do operador responsável
+	 * @param data_ini Date<Date> -> data inicial do período
+	 * @param data_fim Date<Date> -> data final do período
+	 * @param name_responsavel String<String> -> nome do operador responsável
+	 * @return List<Transferencia> ->Lista de transferencia feita pelo operador
+	 */
+	@GetMapping("/busca_total")
+	public List<Transferencia> get_all_filters(
+			@RequestParam(name = "data_inicial") @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_ini,
+			@RequestParam(name = "data_fim") @DateTimeFormat(pattern = "yyyy-MM-dd") Date data_fim,
+			@RequestParam(name = "operador") String name_responsavel) {
+		List<Transferencia> transferencias = transferenciaRepository.findAll();
+		
+		
+		return this.trans_service.filtro_all(transferencias, data_ini, data_fim, name_responsavel);
+	}
 }
